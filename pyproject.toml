@@ -1,0 +1,26 @@
+[project]
+name = "languageFreeAcq"
+version = "0.0.2"
+authors = [
+    { name = "Areski Himeur", email = "areski.himeur@lirmm.fr" },
+]
+description = "A small package for the language free acquisition of a constraint network"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Academic Free License (AFL)",
+    "Operating System :: OS Independent",
+]
+dependencies = ["ortools>=9.10.4067", "tqdm>=4.66.3"]
+
+[project.urls]
+Homepage = "https://github.com/Hareski/language-free-acq"
+Issues = "https://github.com/Hareski/language-free-acq/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
