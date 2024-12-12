@@ -45,9 +45,8 @@ def run_schurslemma(FILE_TRAIN, NB_EXAMPLES, FILE_TEST, ORDER_KR, N):
         if terminated:
             relation_found: bool = relation_is_schurslemma(csp, N)
             network_found: bool = network_is_schurslemma(csp, N)
-            logging.info("FILE_TRAIN: " + FILE_TRAIN, "NB_EXAMPLES: " + str(NB_EXAMPLES), "FILE_TEST: " + FILE_TEST,
-                         "KR: " + str(kr), "ACCURACY: " + str(csp.check_accuracy(FILE_TEST)),
-                         "RELATION: " + str(relation_found), "NETWORK: " + str(network_found),
-                         "TIME: " + str(time.time() - start))
+            logging.info(f"FILE_TRAIN: {FILE_TRAIN} NB_EXAMPLES: {NB_EXAMPLES} FILE_TEST: {FILE_TEST} KR: {kr} "
+                         f"ACCURACY: {csp.check_accuracy(FILE_TEST)} RELATION: {relation_found} NETWORK: {network_found} "
+                         f"TIME: {time.time() - start}")
             return
     raise ValueError("No model found")

@@ -79,7 +79,7 @@ class AcqSystem:
             if self._timeout is not None else None
         self.acq_engine.solve(max_time_remaining)
         if not self.acq_engine.solved():
-            logging.warning("No solution found.")
+            logging.debug("No solution found.")
             return False, 0, None
         current_csp: CspScopesRelations = self.acq_engine.to_csp()
         self.__callback_call(current_csp)

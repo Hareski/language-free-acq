@@ -4,6 +4,8 @@ import sys
 from experiments import xp_schurslemma, xp_sudoku, xp_subgraph_isomorphism, xp_golombruler, \
     xp_queens, xp_jigsaw, xp_custom
 
+from src.languageFreeAcq.Common import kr_generator
+
 
 def run(experiment_name: str, size_list: [int], run_list: [int]):
     """
@@ -22,11 +24,8 @@ def run(experiment_name: str, size_list: [int], run_list: [int]):
     logging.getLogger().addHandler(handler)
 
     # Order for (k, r) values:
-    order_kr = [(1, 2), (1, 1), (2, 1), (3, 1), (4, 1), (1, 2), (5, 1), (2, 2), (6, 1), (3, 2), (7, 1), (4, 2), (8, 1),
-                (5, 2), (9, 1), (6, 2), (1, 3), (10, 1), (7, 2), (2, 3), (11, 1), (8, 2), (3, 3), (12, 1), (9, 2),
-                (4, 3), (13, 1), (10, 2), (5, 3), (14, 1), (11, 2), (6, 3), (12, 2), (7, 3), (13, 2), (8, 3), (1, 4),
-                (14, 2), (9, 3), (2, 4), (10, 3), (3, 4), (11, 3), (4, 4), (12, 3), (5, 4), (13, 3), (6, 4), (14, 3),
-                (7, 4), (8, 4), (9, 4), (10, 4), (1, 5), (11, 4), (2, 5), (12, 4), (3, 5), (13, 4), (4, 5), (14, 4)]
+    generator_kr = kr_generator()
+    order_kr = [next(generator_kr) for _ in range(1000)]
 
     # Experiment 1: Schur's lemma
     if experiment_name == "schurslemma" or experiment_name == "all":

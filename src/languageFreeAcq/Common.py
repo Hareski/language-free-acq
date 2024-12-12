@@ -3,6 +3,24 @@ import logging
 from tqdm import tqdm
 
 
+def kr_generator():
+    """
+    Generator that yields kr values in ascending order based on k + r^2.
+    If there is a tie, it yields the value with the smallest r first.
+    """
+    to_yield = [(1, 1)]
+    yielded = set()
+    while True:
+        to_yield.sort(key=lambda x: x[0] + x[1] ** 2 + 0.1 * x[1])
+        yield to_yield[0]
+        yielded.add(to_yield.pop(0))
+        for (k, r) in yielded:
+            if (k+1, r) not in yielded and (k+1, r) not in to_yield:
+                to_yield.append((k+1, r))
+            if (k, r+1) not in yielded and (k, r+1) not in to_yield:
+                to_yield.append((k, r+1))
+
+
 def progress_bar(maxi: int, title: str = "", active: bool = True):
     """
     Create a progress bar using TQDM, this wrapper allow to simply change progress bar settings
