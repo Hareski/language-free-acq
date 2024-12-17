@@ -63,7 +63,8 @@ class Acquisition:
                             VARIABLES_NUMBERS=self.VARIABLES_NUMBERS,
                             DELTA=delta, TIMEOUT=max_time_remaining, CROSS=True, LOG=verbose,
                             LOG_SOLVER=verbose)
-            acq.add_examples(FILE_PATH=file_train, NB_EXAMPLES=NB_EXAMPLES)
+            if acq.add_examples(FILE_PATH=file_train, NB_EXAMPLES=NB_EXAMPLES) == -1:
+                continue
             acq.set_objectives(SPECIFIC_SCOPES=1000, SPECIFIC_RELATIONS=1)
             terminated, _, csp = acq.run()
             if terminated or _max_time is not None and datetime.datetime.now() > _max_time:

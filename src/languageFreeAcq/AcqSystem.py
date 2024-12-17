@@ -121,6 +121,7 @@ class AcqSystem:
         :param NB_EXAMPLES: maximum number of examples to add from the file
         :param ratio_ejected: ratio of examples to eject from the file
         :return: number of examples added (maybe less than max_examples if the file contains fewer examples)
+                 if -1, there is an negative example that don't have any applied constraints
         """
         if not self.__examples_files_well_formed(FILE_PATH):
             logging.error("Examples file {} not well formed.".format(FILE_PATH))
@@ -148,7 +149,8 @@ class AcqSystem:
                         positive_examples += 1
                         examples_number += 1
                     elif weight == 0:
-                        self.__negative_example_to_clauses(example, PASSIF=False)
+                        if not self.__negative_example_to_clauses(example, PASSIF=False):
+                            return -1
                         negatives_examples += 1
                         examples_number += 1
                     elif weight != 0 and weight != 1:
@@ -210,8 +212,10 @@ class AcqSystem:
                     u_scopes_relations.append((u, scope, relation))
         if len(u_scopes_relations) == 0:
             logging.debug("No negative constraint to add for example {}.".format(example))
+            return False
         else:
             self.acq_engine.negative_constraint(u_scopes_relations)
+            return True
 
     def __callback_call(self, csp: CspScopesRelations):
         if self.CALLBACK is not None:
