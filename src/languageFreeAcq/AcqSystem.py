@@ -15,7 +15,7 @@ class AcqSystem:
     """
 
     def __init__(self, ACQ_ENGINE, DOMAINS: [int], VARIABLES_NUMBERS: int, DELTA: [int], TIMEOUT: int = None,
-                 CROSS=False, SCOPES=None, LOG: bool = True, LOG_SOLVER: bool = True):
+                 CROSS=False, SCOPES=None, LOG: bool = True, LOG_SOLVER: bool = True, MAX_CPU: int = 0):
         """
         Initialisation of the ACQ system.
         :param ACQ_ENGINE: ACQ engine to use (MaxSAT, Linear (first draft used Gurobi as a solver), ...)
@@ -57,7 +57,7 @@ class AcqSystem:
         self.examples_explored: int = 0
 
         # Engine initialization
-        self.acq_engine = ACQ_ENGINE(self.VARIABLES, self.DOMAINS, self.DELTA, self.SCOPES, LOG_SOLVER)
+        self.acq_engine = ACQ_ENGINE(self.VARIABLES, self.DOMAINS, self.DELTA, self.SCOPES, LOG_SOLVER, MAX_CPU=MAX_CPU)
 
         # Callback
         self.CALLBACK: callable = None

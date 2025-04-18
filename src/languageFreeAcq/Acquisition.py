@@ -28,7 +28,7 @@ class Acquisition:
         return self.VARIABLES_NUMBERS
 
     def learn(self, file_train: str, max_examples: int = 0, timeout: int = None,
-              verbose: bool = False) -> CspScopesRelations:
+              verbose: bool = False, max_cpu: int = 0) -> CspScopesRelations:
         """
         Learn the CSP from the given file of examples
         @param file_train: The path to the file of examples with the format: "var1, var2, ..., varN, weight" with var1,
@@ -38,6 +38,7 @@ class Acquisition:
         @param timeout: The maximum time (in s) to learn the CSP. If None, no timeout is set.
         @param verbose: If True, the logs of the optimization process are displayed. The other logs can be displayed by
         setting the logging level to DEBUG.
+        @param max_cpu: The maximum number of CPU cores to use for learning the CSP. If 0, all available cores are used.
         @return: The learned CSP (a CspScopesRelations object)
         """
         csp = None
@@ -62,7 +63,7 @@ class Acquisition:
             acq = AcqSystem(ACQ_ENGINE=engine, DOMAINS=self.DOMAINS,
                             VARIABLES_NUMBERS=self.VARIABLES_NUMBERS,
                             DELTA=delta, TIMEOUT=max_time_remaining, CROSS=True, LOG=verbose,
-                            LOG_SOLVER=verbose)
+                            LOG_SOLVER=verbose, MAX_CPU=max_cpu)
             if acq.add_examples(FILE_PATH=file_train, NB_EXAMPLES=NB_EXAMPLES) == -1:
                 continue
             acq.set_objectives(SPECIFIC_SCOPES=1000, SPECIFIC_RELATIONS=1)

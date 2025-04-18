@@ -27,13 +27,15 @@ class MaxSatOrTools:
         def get_list(self):
             return self.literals
 
-    def __init__(self, LOG: bool = False):
+    def __init__(self, LOG: bool = False, MAX_CPU: int = 0):
         """
         :param LOG:
         """
         logging.debug("Initializing the OR-Tools solver.")
         self._model = cp_model.CpModel()
         self._solver = cp_model.CpSolver()
+        if MAX_CPU > 0:
+            self._solver.parameters.num_search_workers = MAX_CPU
         self._count_vars = 0
         self._vars = {}
         self._hard_clauses = []

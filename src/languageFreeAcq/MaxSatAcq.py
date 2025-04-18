@@ -13,8 +13,8 @@ class MaxSatAcq:
     MaxSat solver wrapper for the acquisition problem
     """
 
-    def __init__(self, VARIABLES, DOMAINS, DELTA, SCOPES, LOG):
-        self.model = MaxSatOrTools(LOG)
+    def __init__(self, VARIABLES, DOMAINS, DELTA, SCOPES, LOG, MAX_CPU=0):
+        self.model = MaxSatOrTools(LOG, MAX_CPU=MAX_CPU)
         self.variables_relations = {}
         self.variables_scopes = {}
         self.variables_relations = {}
